@@ -9,7 +9,7 @@ public class BubbleSort {
     }
     private static void bubbleSort() {
         for(int i=0;i<x.length;i++) {
-            for(int j=x.length-1; j>0;j--) {
+            for(int j=x.length-1; j>i;j--) {
                 if(x[j] < x[j-1]){
                     swap(j,j-1);
                 }
