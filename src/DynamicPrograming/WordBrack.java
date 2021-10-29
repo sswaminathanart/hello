@@ -2,28 +2,26 @@ package DynamicPrograming;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class WordBrack {
     public static String[] wordBreak(String s,String[] words){
 
-        Set<String> setOfAccounts = new HashSet<>(Arrays.asList(words));
-        List<String> str=wordBreak(s,setOfAccounts);
+        List<String> dictionary = new ArrayList<>(Arrays.asList(words));
+        List<String> str=wordBreak(dictionary, s);
         return str.toArray(new String[str.size()]);
     }
-    public static List<String> wordBreak(String s, Set<String> wordDict) {
+    public static List<String> wordBreak(List<String> dictionary, String s) {
         ArrayList<String> [] pos = new ArrayList[s.length()+1];
-        pos[0]=new ArrayList<String>();
+        pos[0]=new ArrayList<>();
 
         for(int i=0; i<s.length(); i++){
             if(pos[i]!=null){
                 for(int j=i+1; j<=s.length(); j++){
                     String sub = s.substring(i,j);
-                    if(wordDict.contains(sub)){
+                    if(dictionary.contains(sub)){
                         if(pos[j]==null){
-                            ArrayList<String> list = new ArrayList<String>();
+                            ArrayList<String> list = new ArrayList<>();
                             list.add(sub);
                             pos[j]=list;
                         }else{
