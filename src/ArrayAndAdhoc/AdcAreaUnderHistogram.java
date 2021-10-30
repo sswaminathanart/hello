@@ -88,33 +88,24 @@ public class AdcAreaUnderHistogram {
         return maxArea;
     }
 
-    static long findMaxPossibleArea(long[] heights, int l, int r) {
-        int len = heights.length;
-        long area ;
-        int top;
-        long max_area =0;
+    static long findMaxPossibleArea(long[] heights) {
+        long max_area =-1;
         Stack<Integer> stack = new Stack<>();
         int i = 0;
-        while (i < len){
+        while (i < heights.length){
             if(stack.empty()||heights[stack.peek()]<=heights[i]){
                 stack.push(i++);
             }
             else{
-                top = stack.peek();
+                int top = stack.peek();
                 stack.pop();
-                area = heights[top] * (stack.empty() ? i : i - stack.peek() - 1);
-                if(max_area < area){
-                    max_area = area;
-                }
+                max_area = Math.max(max_area, heights[top] * (stack.empty() ? i : i - stack.peek() - 1));
             }
         }
         while(!stack.empty()){
-            top = stack.peek();
+            int top = stack.peek();
             stack.pop();
-            area = heights[top] * (stack.empty() ? i : i - stack.peek() - 1);
-            if(max_area<area){
-                max_area = area;
-            }
+            max_area = Math.max(max_area, heights[top] * (stack.empty() ? i : i - stack.peek() - 1));
         }
         return max_area;
     }
@@ -125,5 +116,6 @@ public class AdcAreaUnderHistogram {
         long hist[] = { 6, 2, 5, 4, 5, 1, 6 };
         System.out.println("Maximum area is " + getMaxArea(hist, hist.length));
         System.out.println("Maximum area is " + findMaxPossibleArea1(hist, 0,6));
+        System.out.println("Maximum area is " + findMaxPossibleArea(hist));
     }
 }
